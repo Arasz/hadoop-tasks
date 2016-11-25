@@ -32,7 +32,7 @@ public class NeighbourCount {
 		job.setJarByClass(NeighbourCount.class);
 
         job.setMapperClass(NeighbourMapper.class);
-        //job.setCombinerClass(NeighbourCollector.class);
+        job.setCombinerClass(NeighbourCollector.class);
         job.setReducerClass(NeighbourReducer.class);
 
 
@@ -126,10 +126,7 @@ public class NeighbourCount {
 
             for (TextArrayWritable neighboursSet : values)
                 for (String text : neighboursSet.toStrings())
-                {
-                    System.out.println("---->> "+text);
                     mergedSet.add(text);
-                }
 
             context.write(key, new IntWritable(mergedSet.size()));
 		}

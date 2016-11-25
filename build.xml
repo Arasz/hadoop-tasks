@@ -3,9 +3,9 @@
 	<property file="${basedir}/project.properties" />
 	<property environment="env" />
 
-	<property name="user.hdfs.dir" value="/${user.id}" />
+	<property name="user.hdfs.dir" value="/" />
 
-	<property name="data.dir" value="${basedir}/data" />
+	<property name="data.dir" value="${hadoop.dir}/data" />
 	<property name="hdfs.data.dir" value="/data" />
 	
 	<property name="hadoop.conf.dir" value="${hadoop.home}/conf" />
@@ -71,6 +71,9 @@
 	<target name="run-jar">
 		<exec executable="${hdfs}">
 			<arg line="dfs -rm -r ${hdfs.results.dir}" />
+		</exec>
+		<exec executable="${hdfs}">
+			<arg line="dfs -mkdir ${hdfs.results.dir}" />
 		</exec>
 		<exec executable="${hadoop}">
 			<arg line="jar ${java.target.jar} ${job.name} ${hdfs.data.dir}/${job.data} ${hdfs.job.results.dir} ${job.args}" />
